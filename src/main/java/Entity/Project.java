@@ -1,5 +1,6 @@
 package Entity;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class Project {
@@ -7,7 +8,7 @@ public class Project {
 
     private long id;
     private String title;
-    private BigInteger cost;
+    private BigDecimal cost;
 
     public Project()
     {
@@ -33,13 +34,23 @@ public class Project {
         this.title = title;
     }
 
-    public BigInteger getCost()
+    public BigDecimal getCost()
     {
         return cost;
     }
 
-    public void setCost(BigInteger cost)
+    public void setCost(BigDecimal cost)
     {
         this.cost = cost;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Project{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", cost=" + cost +
+                '}' + "";
     }
 }

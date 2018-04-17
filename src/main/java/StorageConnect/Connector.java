@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Postgres connector
+ *
+ * [!] We can use connection pool
+ */
 public enum Connector {
 
     JDBC_CONNECTOR;
@@ -16,20 +21,22 @@ public enum Connector {
 
     public Connection getConnection()
     {
-        connect();
+        try {
+            connect();
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        }
 
         return conn;
     }
 
     private void connect()
+    throws SQLException
     {
-        if ( !(conn instanceof Connection) )
+        if ( !(conn instanceof Connection) || (conn instanceof Connection && conn.isClosed()))
 
-        try {
-            conn = DriverManager.getConnection( url, user, password );
-            System.out.println( "Connected to the PostgreSQL server successfully." );
-        } catch ( SQLException e ) {
-            System.out.println( e.getMessage() );
-        }
+        conn = DriverManager.getConnection( url, user, password );
+
+        System.out.println( "Connected to the PostgreSQL server successfully." );
     }
 }
